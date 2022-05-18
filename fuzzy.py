@@ -1,3 +1,4 @@
+from calendar import c
 import pandas as pd
 from operator import itemgetter
 from numpy import array
@@ -40,20 +41,41 @@ def expensive_price(price):
     pass
 
 # Quality
+def rumus(a,b,c,d,x):
+    if x <= a and x >= d:
+        return 0
+    elif x > a and x < b:
+        return (x-a)/(b-a)
+    elif x >= b and x <= c:
+        return 1
+    elif x > c and x <= d:
+        return -1*((x-d)/(d-c))
+
+
 def worst_quality(quality):
-    pass
+    if  quality >= 30:
+        return 0
+    elif quality >= 1 and quality <= 20:
+        return 1
+    elif quality > 20 and quality <= 30:
+        return -1*((quality-30)/(30-20))
 
 def bad_quality(quality):
-    pass
+    return rumus(20,30,40,50,quality)
 
 def average_quality(quality):
-    pass
+    return rumus(40,50,60,70,quality)
 
 def good_quality(quality):
-    pass
+    return rumus(60,70,80,90,quality)
 
 def best_quality(quality):
-    pass
+    if quality <= 80:
+        return 0
+    elif quality > 80 and quality < 90:
+        return (quality-80)/(90-80)
+    elif quality >= 90 and quality <= 100:
+        return 1
 
 # Fuzzification
 def price_fuzzy(price):
