@@ -24,20 +24,30 @@ def read_data(filename):
 
 # Price
 def cheap_price(price):
-    if price > 4:
+    if price >= 4:
         mu = 0.0
-    elif 1 < price <= 4:
-        mu = (-(price - 4)) / (4 - 1)
-    elif price == 1:
-        mu = 1.0
+    elif 1 <= price < 4:
+        mu = (-1 * (price - 4)) / (4 - 1)
     return mu
     
 
 def moderate_price(price):
-    pass
+    a = 3; b = 5; c = 8
+    if price >= c or price <= a:
+        mu = 0.0
+    elif a < price <= b:
+        mu = (price - a) / (b - a)
+    elif b < price < a:
+        mu = (-1 * (price - c)) / (c - b)
+    return mu
+    
 
 def expensive_price(price):
-    pass
+    if price <= 7:
+        mu = 0.0
+    elif 7 < price <= 10:
+        mu = (price - 7) / (10 - 7)
+    return mu
 
 # Quality
 def worst_quality(quality):
@@ -57,10 +67,20 @@ def best_quality(quality):
 
 # Fuzzification
 def price_fuzzy(price):
-    pass
+    set_price = {
+        "cheap"     : cheap_price(price),
+        "moderate"  : moderate_price(price),
+        "expensive" : expensive_price(price) 
+    }
 
 def quality_fuzzy(quality):
-    pass
+    set_quality = {
+        "worst"     : worst_quality(quality),
+        "bad"       : bad_quality(quality),
+        "average"   : average_quality(quality),
+        "good"      : good_quality(quality),
+        "best"      : best_quality(quality)
+    }
 
 def inference(set_price, set_quality):
     pass
