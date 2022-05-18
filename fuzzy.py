@@ -53,20 +53,20 @@ def expensive_price(price):
 # Quality
 def rumus(a,b,c,d,x):
     if x <= a and x >= d:
-        return 0
+        return 0.0
     elif x > a and x < b:
         return (x-a)/(b-a)
     elif x >= b and x <= c:
-        return 1
+        return 1.0
     elif x > c and x <= d:
         return -1*((x-d)/(d-c))
 
 
 def worst_quality(quality):
     if  quality >= 30:
-        return 0
+        return 0.0
     elif quality >= 1 and quality <= 20:
-        return 1
+        return 1.0
     elif quality > 20 and quality <= 30:
         return -1*((quality-30)/(30-20))
 
@@ -81,11 +81,11 @@ def good_quality(quality):
 
 def best_quality(quality):
     if quality <= 80:
-        return 0
+        return 0.0
     elif quality > 80 and quality < 90:
         return (quality-80)/(90-80)
     elif quality >= 90 and quality <= 100:
-        return 1
+        return 1.0
 
 # Fuzzification
 def price_fuzzy(price):
@@ -115,3 +115,14 @@ def sort_best_of_ten(set_sugeno, set_data):
 
 if __name__=="__main__":
     data = read_data("bengkel.xlsx")
+    sugeno_set = []
+    for i in range(len(data)):
+        inference = inference(quality_fuzzy(data[i, 1]), price_fuzzy(data[i, 2]))
+        sugeno_temp = sugeno(inference)
+        sugeno_set.append([sugeno_temp, i+1])
+    
+    best_ten = sort_best_of_ten(sugeno_set, data)
+    output = pd.DataFrame(best_ten, columns=['id', 'servis', 'harga', 'sugeno'])
+
+    print(output)
+    output.to_excel('urutan.xlsx', index = False)
