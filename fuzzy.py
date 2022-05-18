@@ -24,7 +24,14 @@ def read_data(filename):
 
 # Price
 def cheap_price(price):
-    pass
+    if price > 4:
+        mu = 0.0
+    elif 1 < price <= 4:
+        mu = (-(price - 4)) / (4 - 1)
+    elif price == 1:
+        mu = 1.0
+    return mu
+    
 
 def moderate_price(price):
     pass
@@ -65,4 +72,4 @@ def sort_best_of_ten(set_sugeno, set_data):
     pass
 
 if __name__=="__main__":
-    print("Hello World!")
+    data = read_data("bengkel.xlsx")
