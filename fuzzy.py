@@ -18,7 +18,9 @@ from copy import deepcopy
 '''
 
 def read_data(filename):
-    pass
+    file = pd.read_excel(filename)
+    data = file.to_numpy().copy()
+    return data
 
 # Price
 def cheap_price(price):
@@ -44,6 +46,22 @@ def good_quality(quality):
     pass
 
 def best_quality(quality):
+    pass
+
+# Fuzzification
+def price_fuzzy(price):
+    pass
+
+def quality_fuzzy(quality):
+    pass
+
+def inference(set_price, set_quality):
+    pass
+
+def sugeno(set_inference):
+    pass
+
+def sort_best_of_ten(set_sugeno, set_data):
     pass
 
 if __name__=="__main__":
