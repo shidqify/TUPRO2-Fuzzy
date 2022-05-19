@@ -177,7 +177,7 @@ if __name__=="__main__":
         sugeno_set.append([sugeno_temp, i+1])
     
     best_ten = sort_best_of_ten(sugeno_set, data)
-    output = pd.DataFrame(best_ten, columns=["id", "servis", "harga", "sugeno"])
+    output = pd.DataFrame(best_ten, columns=["id", "services", "prices", "sugeno results"])
 
     print(output)
     output.to_excel("peringkat.xlsx", index = False)
