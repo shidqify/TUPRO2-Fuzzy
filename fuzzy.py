@@ -6,16 +6,16 @@ from copy import deepcopy
 
 '''
     Price :
-        - Cheap
-        - Moderate
-        - Expensive
+        - Cheap     1 - 4
+        - Moderate  3 - 8
+        - Expensive 7 - 10
 
     Quality :
-        - Worst
-        - Bad
-        - Average
-        - Good
-        - Best
+        - Worst     1 - 30
+        - Bad       20 - 50
+        - Average   40 - 70
+        - Good      60 - 90
+        - Best      80 - 100
 '''
 
 def read_data(filename):
