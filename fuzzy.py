@@ -23,14 +23,6 @@ def read_data(filename):
     return data
 
 # Price
-def price_func(a,b,c,x):
-    if x <= a and x >= c:
-        return 0
-    elif a < x <= b:
-        return (x - a) / (b - a)
-    elif b < x <= c:
-        return -1 * (x - c) / (c - b)
-
 def cheap_price(price):
     if price >= 5:
         mu = 0
