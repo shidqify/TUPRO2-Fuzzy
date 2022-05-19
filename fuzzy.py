@@ -63,7 +63,7 @@ def expensive_price(price):
 
 # Quality
 def rumus(a,b,c,d,x):
-    if x <= a and x >= d:
+    if x <= a or x >= d:
         return 0
     elif x > a and x < b:
         return (x-a)/(b-a)
@@ -105,6 +105,8 @@ def price_fuzzy(price):
         "moderate"  : moderate_price(price),
         "expensive" : expensive_price(price) 
     }
+    
+    return set_price
 
 def quality_fuzzy(quality):
     set_quality = {
@@ -115,12 +117,15 @@ def quality_fuzzy(quality):
         "best"      : best_quality(quality)
     }
 
+    return set_quality
+
 def inference(set_price, set_quality):
     set_inference = {
         "low"   : [],
         "mid"   : [],
         "high"  : []
     }
+
     set_inference["low"].append(min(    set_price["cheap"],         set_quality["worst"]    ))
     set_inference["low"].append(min(    set_price["cheap"],         set_quality["bad"]      ))
     set_inference["low"].append(min(    set_price["cheap"],         set_quality["average"]  ))
@@ -129,7 +134,7 @@ def inference(set_price, set_quality):
     set_inference["low"].append(min(    set_price["moderate"],      set_quality["bad"]      ))
 
     set_inference["mid"].append(min(    set_price["cheap"],         set_quality["best"]     ))
-    set_inference["mid"].append(min(    set_price["moderate"],      set_quality["moderate"] ))
+    set_inference["mid"].append(min(    set_price["moderate"],      set_quality["average"] ))
     set_inference["mid"].append(min(    set_price["moderate"],      set_quality["good"]     ))
     set_inference["mid"].append(min(    set_price["moderate"],      set_quality["best"]     ))
     set_inference["mid"].append(min(    set_price["expensive"],     set_quality["worst"]    ))
@@ -176,12 +181,12 @@ if __name__=="__main__":
     data = read_data("bengkel.xlsx")
     sugeno_set = []
     for i in range(len(data)):
-        inference = inference(quality_fuzzy(data[i, 1]), price_fuzzy(data[i, 2]))
-        sugeno_temp = sugeno(inference)
+        set_inference = inference(price_fuzzy(data[i, 2]), quality_fuzzy(data[i, 1]))
+        sugeno_temp = sugeno(set_inference)
         sugeno_set.append([sugeno_temp, i+1])
     
     best_ten = sort_best_of_ten(sugeno_set, data)
-    output = pd.DataFrame(best_ten, columns=['id', 'servis', 'harga', 'sugeno'])
+    output = pd.DataFrame(best_ten, columns=["id", "servis", "harga", "sugeno"])
 
     print(output)
-    output.to_excel('urutan.xlsx', index = False)
+    output.to_excel("peringkat.xlsx", index = False)
